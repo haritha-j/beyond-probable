@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Visualizing sorting algorithms</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* ===== Post-specific styles for interactive content ===== */
+    .viz-canvas {
+      background: #0a0a0a;
+      border-radius: 8px;
+      padding: 2rem;
+      margin: 2rem 0;
+      border: 1px solid var(--border);
+    }
+
+    .viz-controls {
+      display: flex;
+      gap: 0.75rem;
+      margin-bottom: 1.5rem;
+      flex-wrap: wrap;
+    }
+
+    .viz-btn {
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      padding: 0.4rem 1rem;
+      border: 1px solid #333;
+      background: #1a1a1a;
+      color: #ccc;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      letter-spacing: 0.03em;
+    }
+
+    .viz-btn:hover {
+      background: #2a2a2a;
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    .viz-btn.active {
+      background: var(--accent);
+      color: #000;
+      border-color: var(--accent);
+      font-weight: 600;
+    }
+
+    .bars-container {
+      display: flex;
+      align-items: flex-end;
+      gap: 2px;
+      height: 220px;
+      padding: 0 0.5rem;
+    }
+
+    .bar {
+      flex: 1;
+      background: var(--accent);
+      border-radius: 2px 2px 0 0;
+      transition: height 0.08s ease;
+      min-width: 4px;
+      opacity: 0.7;
+    }
+
+    .bar.active {
+      background: #ff6b6b;
+      opacity: 1;
+    }
+
+    .bar.sorted {
+      background: var(--accent);
+      opacity: 1;
+    }
+
+    .viz-stats {
+      display: flex;
+      gap: 2rem;
+      margin-top: 1rem;
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: #666;
+    }
+
+    .viz-stats span {
+      color: #ccc;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ===== TOP NAV ===== -->
+  <nav class="top-nav">
+    <div class="nav-left">
+      <span class="nav-logo"><span class="dot"></span></span>
+      <a href="../index.html" class="active">[B] Blog</a>
+      <a href="../about.html">[A] About</a>
+    </div>
+    <div class="nav-right">
+      <a href="https://github.com" target="_blank">[G] GitHub</a>
+    </div>
+  </nav>
+
+  <!-- ===== POST CONTENT ===== -->
+  <article class="post-page">
+
+    <header class="post-hero">
+      <div class="post-meta">
+        <span class="post-date">2026.01.20</span>
+        <span>·</span>
+        <span class="tag">Interactive</span>
+        <span>·</span>
+        <span>6 min read</span>
+      </div>
+      <h1>Visualizing sorting algorithms</h1>
+      <p class="post-subtitle">
+        An interactive exploration of how different sorting algorithms work, 
+        with real-time visualizations you can control.
+      </p>
+    </header>
+
+    <div class="post-content-layout full-width">
+      <div class="post-content" style="max-width: 860px;">
+
+        <p>
+          Sorting algorithms are one of the foundational topics in computer science, yet seeing 
+          them described purely in text or pseudocode can make them feel abstract. Visualizing 
+          each step makes the differences between algorithms intuitive and immediate.
+        </p>
+
+        <h2 id="interactive-demo">Interactive demo</h2>
+
+        <p>
+          Use the controls below to see how each algorithm approaches the problem of ordering 
+          a random set of values. Watch the comparisons and swaps happen in real time.
+        </p>
+
+        <!-- ===== INTERACTIVE VISUALIZATION ===== -->
+        <div class="viz-canvas">
+          <div class="viz-controls">
+            <button class="viz-btn active" onclick="setAlgorithm('bubble')">Bubble Sort</button>
+            <button class="viz-btn" onclick="setAlgorithm('selection')">Selection Sort</button>
+            <button class="viz-btn" onclick="setAlgorithm('insertion')">Insertion Sort</button>
+            <button class="viz-btn" onclick="setAlgorithm('quick')">Quick Sort</button>
+            <button class="viz-btn" onclick="startSort()" style="margin-left: auto; background: var(--accent); color: #000; font-weight: 600;">▶ Start</button>
+            <button class="viz-btn" onclick="resetArray()">↻ Reset</button>
+          </div>
+          <div class="bars-container" id="barsContainer"></div>
+          <div class="viz-stats">
+            Comparisons: <span id="comparisons">0</span>
+            &nbsp;&nbsp;
+            Swaps: <span id="swaps">0</span>
+            &nbsp;&nbsp;
+            Algorithm: <span id="currentAlgo">Bubble Sort</span>
+          </div>
+        </div>
+
+        <h2 id="bubble-sort">Bubble sort</h2>
+
+        <p>
+          Bubble sort works by repeatedly stepping through the list, comparing adjacent elements, 
+          and swapping them if they're in the wrong order. It's called "bubble" sort because 
+          smaller elements gradually "bubble" to the top (beginning) of the list.
+        </p>
+
+        <p>
+          While simple to understand, bubble sort has O(n²) time complexity, making it impractical 
+          for large datasets. However, it has the nice property of being stable and requiring 
+          no additional memory.
+        </p>
+
+        <h2 id="selection-sort">Selection sort</h2>
+
+        <p>
+          Selection sort divides the list into a sorted portion and an unsorted portion. On each 
+          pass, it finds the minimum element from the unsorted portion and moves it to the end 
+          of the sorted portion.
+        </p>
+
+        <h2 id="insertion-sort">Insertion sort</h2>
+
+        <p>
+          Insertion sort builds the sorted array one element at a time. It takes each element and 
+          inserts it into its correct position within the already-sorted portion of the array. 
+          It's highly efficient for small or nearly-sorted data.
+        </p>
+
+        <h2 id="quick-sort">Quick sort</h2>
+
+        <p>
+          Quick sort uses a divide-and-conquer strategy. It picks a "pivot" element and partitions 
+          the array so that elements smaller than the pivot come before it and elements larger 
+          come after. This process repeats recursively on each partition.
+        </p>
+
+        <p>
+          With an average time complexity of O(n log n), quick sort is one of the most widely 
+          used sorting algorithms in practice. Most standard library sort implementations are 
+          based on quick sort or its variants.
+        </p>
+
+        <hr>
+
+        <!-- ===== IFRAME EMBED EXAMPLE ===== -->
+        <h2 id="further-exploration">Further exploration</h2>
+
+        <p>
+          For a more comprehensive visualization with additional algorithms, here's an embedded 
+          interactive tool:
+        </p>
+
+        <div class="embed-block">
+          <iframe 
+            src="https://visualgo.net/en/sorting" 
+            height="500" 
+            loading="lazy"
+            title="Sorting algorithm visualizer"
+            sandbox="allow-scripts allow-same-origin">
+          </iframe>
+          <div class="embed-caption">
+            ↗ VisuAlgo — visualising data structures and algorithms through animation
+          </div>
+        </div>
+
+        <p>
+          Understanding these algorithms isn't just academic — the intuitions transfer to many 
+          real-world engineering problems involving ordering, searching, and optimization.
+        </p>
+
+      </div>
+    </div>
+
+  </article>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <span>&copy; 2026</span>
+      <div class="footer-links">
+        <a href="../index.html">Blog</a>
+        <a href="../about.html">About</a>
+        <a href="https://github.com" target="_blank">GitHub</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // ===== Sorting Visualization =====
+    let array = [];
+    let sorting = false;
+    let algorithm = 'bubble';
+    let comparisons = 0;
+    let swapCount = 0;
+    const SIZE = 50;
+    const DELAY = 30;
+
+    function initArray() {
+      array = Array.from({ length: SIZE }, () => Math.random() * 200 + 10);
+      comparisons = 0;
+      swapCount = 0;
+      updateStats();
+      renderBars();
+    }
+
+    function renderBars(activeIndices = [], sortedIndices = []) {
+      const container = document.getElementById('barsContainer');
+      container.innerHTML = '';
+      const maxVal = Math.max(...array);
+      array.forEach((val, i) => {
+        const bar = document.createElement('div');
+        bar.className = 'bar';
+        if (activeIndices.includes(i)) bar.classList.add('active');
+        if (sortedIndices.includes(i)) bar.classList.add('sorted');
+        bar.style.height = (val / maxVal * 200) + 'px';
+        container.appendChild(bar);
+      });
+    }
+
+    function updateStats() {
+      document.getElementById('comparisons').textContent = comparisons;
+      document.getElementById('swaps').textContent = swapCount;
+    }
+
+    function sleep(ms) {
+      return new Promise(resolve => setTimeout(resolve, ms));
+    }
+
+    function setAlgorithm(algo) {
+      if (sorting) return;
+      algorithm = algo;
+      const names = { bubble: 'Bubble Sort', selection: 'Selection Sort', insertion: 'Insertion Sort', quick: 'Quick Sort' };
+      document.getElementById('currentAlgo').textContent = names[algo];
+      document.querySelectorAll('.viz-btn').forEach(btn => btn.classList.remove('active'));
+      event.target.classList.add('active');
+    }
+
+    function resetArray() {
+      if (sorting) return;
+      initArray();
+    }
+
+    async function startSort() {
+      if (sorting) return;
+      sorting = true;
+      comparisons = 0;
+      swapCount = 0;
+
+      switch (algorithm) {
+        case 'bubble': await bubbleSort(); break;
+        case 'selection': await selectionSort(); break;
+        case 'insertion': await insertionSort(); break;
+        case 'quick': await quickSort(0, array.length - 1); break;
+      }
+
+      renderBars([], Array.from({ length: array.length }, (_, i) => i));
+      sorting = false;
+    }
+
+    async function bubbleSort() {
+      for (let i = 0; i < array.length; i++) {
+        for (let j = 0; j < array.length - i - 1; j++) {
+          comparisons++;
+          if (array[j] > array[j + 1]) {
+            [array[j], array[j + 1]] = [array[j + 1], array[j]];
+            swapCount++;
+          }
+          renderBars([j, j + 1]);
+          updateStats();
+          await sleep(DELAY);
+        }
+      }
+    }
+
+    async function selectionSort() {
+      for (let i = 0; i < array.length; i++) {
+        let minIdx = i;
+        for (let j = i + 1; j < array.length; j++) {
+          comparisons++;
+          if (array[j] < array[minIdx]) minIdx = j;
+          renderBars([minIdx, j]);
+          updateStats();
+          await sleep(DELAY);
+        }
+        if (minIdx !== i) {
+          [array[i], array[minIdx]] = [array[minIdx], array[i]];
+          swapCount++;
+        }
+      }
+    }
+
+    async function insertionSort() {
+      for (let i = 1; i < array.length; i++) {
+        let key = array[i];
+        let j = i - 1;
+        while (j >= 0 && array[j] > key) {
+          comparisons++;
+          array[j + 1] = array[j];
+          swapCount++;
+          j--;
+          renderBars([j + 1, i]);
+          updateStats();
+          await sleep(DELAY);
+        }
+        array[j + 1] = key;
+      }
+    }
+
+    async function quickSort(low, high) {
+      if (low < high) {
+        const pi = await partition(low, high);
+        await quickSort(low, pi - 1);
+        await quickSort(pi + 1, high);
+      }
+    }
+
+    async function partition(low, high) {
+      const pivot = array[high];
+      let i = low - 1;
+      for (let j = low; j < high; j++) {
+        comparisons++;
+        if (array[j] < pivot) {
+          i++;
+          [array[i], array[j]] = [array[j], array[i]];
+          swapCount++;
+        }
+        renderBars([i, j, high]);
+        updateStats();
+        await sleep(DELAY);
+      }
+      [array[i + 1], array[high]] = [array[high], array[i + 1]];
+      swapCount++;
+      return i + 1;
+    }
+
+    // Initialize on load
+    initArray();
+  </script>
+
+  <script src="../js/main.js"></script>
+</body>
+</html>

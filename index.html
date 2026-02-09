@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Blog</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- ===== TOP NAV ===== -->
+  <nav class="top-nav">
+    <div class="nav-left">
+      <span class="nav-logo"><span class="dot"></span></span>
+      <a href="index.html" class="active">[B] Blog</a>
+      <a href="about.html">[A] About</a>
+    </div>
+    <div class="nav-right">
+      <a href="https://github.com" target="_blank">[G] GitHub</a>
+    </div>
+  </nav>
+
+  <!-- ===== PAGE HEADER ===== -->
+  <header class="page-header">
+    <h1>Blog<sup class="post-count" id="postCount"></sup></h1>
+  </header>
+
+  <!-- ===== MAIN LAYOUT ===== -->
+  <main class="home-layout">
+
+    <!-- SIDEBAR FILTERS -->
+    <aside class="sidebar">
+      <div class="sidebar-section">
+        <div class="sidebar-title" onclick="toggleSection(this)">
+          <span class="chevron">▼</span> Topic
+        </div>
+        <ul class="filter-list" id="topicFilters">
+          <!-- populated by JS -->
+        </ul>
+      </div>
+    </aside>
+
+    <!-- BLOG LIST -->
+    <section class="blog-list-container">
+      <div class="blog-list-header">
+        <span>/ Date</span>
+        <span>/ Name</span>
+        <span></span>
+      </div>
+      <ul class="blog-list" id="blogList">
+        <!-- populated by JS -->
+      </ul>
+    </section>
+
+  </main>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <span>&copy; 2026</span>
+      <div class="footer-links">
+        <a href="index.html">Blog</a>
+        <a href="about.html">About</a>
+        <a href="https://github.com" target="_blank">GitHub</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/posts.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>

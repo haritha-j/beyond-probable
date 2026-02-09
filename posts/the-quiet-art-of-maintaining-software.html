@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The quiet art of maintaining software</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <nav class="top-nav">
+    <div class="nav-left">
+      <span class="nav-logo"><span class="dot"></span></span>
+      <a href="../index.html" class="active">[B] Blog</a>
+      <a href="../about.html">[A] About</a>
+    </div>
+    <div class="nav-right">
+      <a href="https://github.com" target="_blank">[G] GitHub</a>
+    </div>
+  </nav>
+
+  <article class="post-page">
+    <header class="post-hero">
+      <div class="post-meta">
+        <span class="post-date">2026.01.10</span>
+        <span>·</span>
+        <span class="tag">Engineering</span>
+        <span>·</span>
+        <span>10 min read</span>
+      </div>
+      <h1>The quiet art of maintaining software</h1>
+      <p class="post-subtitle">
+        On the underappreciated craft of keeping systems running, evolving code gently, 
+        and the patience required to steward a codebase over time.
+      </p>
+    </header>
+
+    <div class="post-content-layout">
+      <div class="post-content">
+
+        <p>
+          We celebrate the creation of software — the launch, the new feature, the ground-up 
+          rewrite. But the vast majority of a codebase's life is spent being maintained. 
+          Updates applied, bugs triaged, dependencies refreshed, documentation clarified. 
+          This unglamorous work is where the real craft lives.
+        </p>
+
+        <h2 id="invisible-work">The invisible work</h2>
+
+        <p>
+          Maintenance is invisible by design. When it's done well, nothing happens — the system 
+          continues to run, users continue to be served, and nobody notices the careful work 
+          keeping everything from falling apart. The reward for excellent maintenance is silence.
+        </p>
+
+        <p>
+          This creates a strange incentive structure. Building new features generates excitement, 
+          promotions, and conference talks. Keeping the existing system healthy generates none of 
+          these things, despite being arguably more important to the organization.
+        </p>
+
+        <h2 id="gentle-evolution">Gentle evolution over revolution</h2>
+
+        <p>
+          The urge to rewrite is strong. We look at code written by our past selves (or others) 
+          and see all the things we would do differently. But rewrites are risky — they discard 
+          hard-won knowledge embedded in the existing code. Every quirky edge case handler, 
+          every odd-looking conditional, likely exists for a reason.
+        </p>
+
+        <blockquote>
+          <p>"The existing code has been tested by reality in ways that new code hasn't."</p>
+        </blockquote>
+
+        <p>
+          A better approach is gentle evolution: making small, incremental improvements that 
+          gradually reshape the system without breaking what works. Rename a confusing variable. 
+          Extract a function. Add a test for a fragile path. Over time, these small improvements 
+          compound into something remarkable.
+        </p>
+
+        <h2 id="dependency-management">The dependency question</h2>
+
+        <p>
+          Modern software is built on towering stacks of dependencies. A typical web application 
+          might pull in hundreds or thousands of packages, each with their own maintenance story. 
+          Keeping dependencies current is one of the most important — and most tedious — 
+          maintenance tasks.
+        </p>
+
+        <p>
+          The key is finding a sustainable rhythm. Not updating everything every day, but not 
+          letting things rot for years either. Automated tools help, but they need human judgment 
+          to guide them. Not every update should be applied immediately; some need careful 
+          evaluation and testing.
+        </p>
+
+        <h2 id="documentation">Documentation as maintenance</h2>
+
+        <p>
+          Code tells you what the system does. Documentation tells you why. The gap between these 
+          two grows over time as the original authors move on and institutional knowledge fades. 
+          Good maintenance includes regular attention to documentation — not exhaustive API docs, 
+          but clear explanations of non-obvious decisions.
+        </p>
+
+        <p>
+          The most valuable documentation is often the shortest: a comment explaining why a 
+          workaround exists, a README section on the deployment process, an architecture decision 
+          record capturing the trade-offs considered.
+        </p>
+
+        <h2 id="patience">The patience it requires</h2>
+
+        <p>
+          Maintaining software well requires a particular temperament. You need patience to 
+          investigate bugs in systems you didn't build. Humility to accept that code doesn't 
+          need to be perfect, just functional and clear. Discipline to do the boring work 
+          consistently rather than in sporadic bursts.
+        </p>
+
+        <p>
+          The best maintainers I've worked with share a common trait: they take genuine 
+          satisfaction in leaving a codebase better than they found it, even if nobody notices. 
+          That quiet pride is the hallmark of true craftsmanship.
+        </p>
+
+      </div>
+
+      <aside class="toc">
+        <div class="toc-title">/ On this page</div>
+        <ul class="toc-list">
+          <li><a href="#invisible-work">The invisible work</a></li>
+          <li><a href="#gentle-evolution">Gentle evolution</a></li>
+          <li><a href="#dependency-management">The dependency question</a></li>
+          <li><a href="#documentation">Documentation</a></li>
+          <li><a href="#patience">The patience it requires</a></li>
+        </ul>
+      </aside>
+    </div>
+  </article>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <span>&copy; 2026</span>
+      <div class="footer-links">
+        <a href="../index.html">Blog</a>
+        <a href="../about.html">About</a>
+        <a href="https://github.com" target="_blank">GitHub</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../js/main.js"></script>
+</body>
+</html>
