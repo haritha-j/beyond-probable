@@ -16,12 +16,13 @@
   --text-secondary: #666666;
   --text-muted: #999999;
   --border: #e0e0e0;
-  --accent: #00d924;
-  --accent-bg: #00d924;
+  --accent: #f28482;
+  --accent-bg: #f28482;
   --link: #1a1a1a;
-  --link-hover: #00d924;
+  --link-hover: #f28482;
   --nav-bg: #1a1a1a;
   --nav-text: #ffffff;
+  --doodle-color: #973938;
   --font-mono: 'SF Mono', 'Fira Code', 'Fira Mono', 'Roboto Mono', 'Courier New', monospace;
   --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   --font-serif: 'Georgia', 'Times New Roman', serif;
@@ -611,6 +612,16 @@ img {
   border-bottom: 1px solid var(--border);
   margin-bottom: 3rem;
   text-align: center;
+}
+
+.hero-doodles {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: -1;
 }
 
 .site-title {
