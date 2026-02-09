@@ -11,26 +11,21 @@
 </head>
 <body>
 
-  <!-- ===== TOP NAV ===== -->
-  <nav class="top-nav">
-    <div class="nav-left">
-      <span class="nav-logo"><span class="dot"></span></span>
-      <a href="index.html">[B] Blog</a>
-      <a href="about.html" class="active">[A] About</a>
-    </div>
-    <div class="nav-right">
-      <a href="https://github.com" target="_blank">[G] GitHub</a>
-    </div>
-  </nav>
+  <!-- ===== NAV PLACEHOLDER ===== -->
+  <div id="nav-placeholder"></div>
 
   <!-- ===== ABOUT CONTENT ===== -->
   <div class="about-page">
 
+    <header class="site-hero">
+      <h1 class="site-title">Beyond Probable</h1>
+      <p class="site-tagline">Ramblings on computers and various other topics.</p>
+    </header>
+
     <header class="about-hero">
       <h1>About</h1>
       <p class="subtitle">
-        I write about technology, software engineering, and the craft of building things for the web. 
-        Occasionally with interactive visualizations.
+        Trying (semi-successfully) to get computers to do what I want.
       </p>
     </header>
 
@@ -38,74 +33,107 @@
 
       <div class="about-text">
         <p>
-          Hi — I'm a software engineer interested in the intersection of design and technology. 
-          I believe the best technical writing doesn't just explain concepts, it makes them 
-          tangible through clear prose and, where it helps, interactive demonstrations.
+          Final year PhD student at the <a href="https://www.cam.ac.uk/" target="_blank">University of Cambridge</a>,
+          working on 3D modelling of infrastructure. My research interests are in 3D computer vision and
+          infrastructure modelling.
         </p>
 
         <p>
-          This blog is a space for me to explore ideas, share things I've learned, and build 
-          small experiments. Some posts are traditional long-form articles, while others are 
-          more visual and interactive — incorporating embedded visualizations, live code examples, 
-          and data explorations.
+          I graduated with my bachelor's degree from the University of Moratuwa in 2021 specializing in
+          Computer Science and Engineering. I completed my Master of research degree from the Department
+          of Engineering, University of Cambridge in 2022. My academic profile is available
+          <a href="https://www.construction.cam.ac.uk/staff/haritha-jayasinghe" target="_blank">here</a>.
         </p>
 
-        <p>
-          I'm particularly interested in web architecture, developer tooling, data visualization, 
-          and the design of systems that are both powerful and humane.
-        </p>
+        <h2>Experience</h2>
 
-        <h2>Elsewhere</h2>
-
-        <ul class="about-links">
+        <ul class="experience-list">
           <li>
-            <a href="https://github.com" target="_blank">
-              GitHub <span class="arrow">→</span>
-            </a>
+            <strong>Associate Data Scientist</strong><br>
+            Veracity AI, 2020 - 2021
           </li>
           <li>
-            <a href="https://twitter.com" target="_blank">
-              Twitter / X <span class="arrow">→</span>
-            </a>
+            <strong>Google Summer of Code Mentor</strong><br>
+            Point Cloud Library Organisation, 2021
           </li>
           <li>
-            <a href="mailto:hello@example.com">
-              Email <span class="arrow">→</span>
-            </a>
+            <strong>Google Summer of Code Intern</strong><br>
+            Point Cloud Library Organisation, 2021
+          </li>
+          <li>
+            <strong>Teaching Assistant (part-time)</strong><br>
+            University of Moratuwa, 2021
+          </li>
+          <li>
+            <strong>Research Intern</strong><br>
+            University of Sydney & CSIRO Data61, 2019
           </li>
         </ul>
 
-        <h2>About this site</h2>
+        <h2>Selected Publications</h2>
+
+        <div class="publication">
+          <div class="pub-title">Towards a Density Preserving Objective Function for Learning on Point Sets</div>
+          <div class="pub-venue">European Conference on Computer Vision (ECCV), 2024</div>
+          <div class="pub-authors">Haritha Jayasinghe, Ioannis Brilakis</div>
+          <div class="pub-links">
+            <a href="https://github.com/haritha-j/uniformCD" target="_blank">Code <span class="arrow">→</span></a>
+          </div>
+        </div>
+
+        <div class="publication">
+          <div class="pub-title">Learnable Geometry and Connectivity Modelling of BIM Objects</div>
+          <div class="pub-venue">British Machine Vision Conference (BMVC), 2023</div>
+          <div class="pub-authors">Haritha Jayasinghe, Ioannis Brilakis</div>
+          <div class="pub-links">
+            <a href="https://github.com/haritha-j/industrial-facility-relationships" target="_blank">Code <span class="arrow">→</span></a>
+          </div>
+        </div>
+
+        <div class="publication">
+          <div class="pub-title">Topological Relationship Modelling for Industrial Facility Digitisation Using Graph Neural Networks</div>
+          <div class="pub-venue">International Conference on Construction Applications of Virtual Reality, 2023</div>
+          <div class="pub-authors">Haritha Jayasinghe, Ioannis Brilakis</div>
+        </div>
+
+        <div class="publication">
+          <div class="pub-title">Data-Driven Simulation of Ride-Hailing Services Using Imitation and Reinforcement Learning</div>
+          <div class="pub-venue">International Conference on Industrial, Engineering and Other Applications of Applied Intelligent Systems, 2021</div>
+          <div class="pub-authors">Haritha Jayasinghe, Tarindu Jayatilaka, Ravin Gunawardena, Uthayasanker Thayasivam</div>
+        </div>
+
+        <h2>Featured Video</h2>
 
         <p>
-          This site is built with plain HTML, CSS, and JavaScript — no frameworks, no build step. 
-          It's intentionally simple: fast to load, easy to maintain, and focused on the content. 
-          The design is inspired by the clean, utilitarian aesthetic of modern developer-focused 
-          publications.
+          Excerpt from the 2024 DRF debate on Road infrastructure digitalisation, held at the Cambridge Union,
+          where I debated for the proposition.
         </p>
+
+        <div class="embed-block">
+          <iframe
+            width="100%"
+            height="315"
+            src="https://www.youtube.com/embed/4eB8Byyl6so?start=3736"
+            title="YouTube video player"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen>
+          </iframe>
+        </div>
+
       </div>
 
       <div class="about-photo">
-        <div class="photo-placeholder">
-          your photo here
-        </div>
+        <img src="assets/img/prof_pic.png" alt="Profile photo" style="width: 100%; max-width: 380px; border-radius: 8px; border: 1px solid var(--border);">
       </div>
 
     </div>
 
   </div>
 
-  <!-- ===== FOOTER ===== -->
-  <footer class="site-footer">
-    <div class="footer-inner">
-      <span>&copy; 2026</span>
-      <div class="footer-links">
-        <a href="index.html">Blog</a>
-        <a href="about.html">About</a>
-        <a href="https://github.com" target="_blank">GitHub</a>
-      </div>
-    </div>
-  </footer>
+  <!-- ===== FOOTER PLACEHOLDER ===== -->
+  <div id="footer-placeholder"></div>
 
+  <script src="js/load-partials.js"></script>
 </body>
 </html>

@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Beyond Venn Diagrams: diving into UpSet Plots</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- ===== NAV PLACEHOLDER ===== -->
+  <div id="nav-placeholder"></div>
+
+  <article class="post-page">
+    <header class="post-hero">
+      <div class="post-meta">
+        <span class="post-date">2025.07.29</span>
+        <span>·</span>
+        <span class="tag">Data Visualization</span>
+        <span>·</span>
+        <span>6 min read</span>
+      </div>
+      <h1>Beyond Venn Diagrams: diving into UpSet Plots</h1>
+      <p class="post-subtitle">
+        A scalable and intuitive alternative to Venn diagrams for visualizing overlapping sets — 
+        especially when you have more than three.
+      </p>
+    </header>
+
+    <img src="../assets/venn/img/1.webp" alt="Stained glass window at Gonville and Caius College commemorating John Venn" style="margin: 2rem 0;">
+
+    <div class="post-content-layout">
+      <div class="post-content">
+
+        <p>
+          In the dining hall of Gonville and Caius College, Cambridge, students are treated each 
+          day to a view of a set of stained glass windows that commemorate some of the college's 
+          most noted scientists. Perhaps the simplest among these, and personally my favourite, 
+          are the three coloured overlapping circles commemorating John Venn, the inventor of 
+          the Venn diagram. Simplicity, I would argue, is the key feature of the Venn diagram. 
+          When it comes to data visualisation, the simplest means of conveying information 
+          effectively is very often the best.
+        </p>
+
+        <h2 id="problem">The problem with Venn diagrams</h2>
+
+        <p>
+          Humans are inherently visual creatures. Raw numbers, particularly large sets of numbers, 
+          make very little intuitive sense to us. The entire field of data visualisation is built 
+          upon this premise. From pie charts to histograms to scatterplots, we've created many 
+          intuitive representations of data that immediately make sense to an audience. As a PhD 
+          student, and particularly one focused on computer vision, I've always been fascinated 
+          by visualisations and their role in communicating information effectively.
+        </p>
+
+        <p>
+          I was recently interested in visualising overlapping errors between multiple models in 
+          a model ensemble. Consider the case of three different binary classifiers. My goal was 
+          to visualise the interaction of errors between the classifiers in order to understand 
+          their diversity. The solution to this task is obvious to any high school student: Venn 
+          diagrams. Such plots very clearly show the overlaps between the different models in an 
+          intuitive manner, and can easily be created using Python or your language of choice.
+        </p>
+
+        <img src="../assets/venn/img/2.webp" alt="Venn diagram showing counts of error overlap between three classifiers used in a model ensemble">
+        <div class="embed-caption">Counts of error overlap between three classifiers used in a model ensemble. In ensembles, overlaps are generally (but not always) bad, thus the above results are… not ideal.</div>
+
+        <p>
+          However, next, I wanted to introduce a fourth model to my ensemble, and this posed a 
+          bit of an issue. How do I draw a Venn diagram that covers four different sets? And 
+          how about five? or six? Venn diagrams are incredibly useful for two or three sets, 
+          but it wasn't very clear to me how it could extend to more sets, at least not without 
+          compromising simplicity and symmetry.
+        </p>
+
+        <p>
+          It turns out that this is a problem that has occurred to many others, who've come up 
+          with some interesting solutions. John Venn himself proposed a set of diagrams that 
+          uses ellipses to get around this limitation. Yet others have come up with various 
+          interpretations of Venn diagrams for greater than three sets.
+        </p>
+
+        <img src="../assets/venn/img/3.webp" alt="John Venn's solution for visualising overlap between more than three sets using ellipses">
+        <div class="embed-caption">John Venn's solution for visualising overlap between more than three sets using ellipses, Source: <a href="https://en.wikipedia.org/wiki/Venn_diagram" target="_blank">Wikipedia</a></div>
+
+        <p>
+          My favourite comes from a research paper from Germany titled 
+          <a href="https://www.researchgate.net/publication/374850681_Flavour_emulsifiers_and_colour_are_the_most_frequent_markers_to_detect_food_ultra-processing_in_a_UK_food_market_analysis" target="_blank">
+          "Flavour, emulsifiers and colour are the most frequent markers to detect food 
+          ultra-processing in a UK food market analysis"</a>. In true German fashion, the 
+          researchers use increasingly convoluted diagrams to demonstrate overlap between 
+          markers of ultra-processing in food, leaving the reader to squint ever increasingly 
+          to make sense of the diagram. Despite my criticism, the actual paper seems like a 
+          rather interesting study of ultra-processed food. Plus you have to admit, the diagrams 
+          do look rather pretty, if unintelligible.
+        </p>
+
+        <img src="../assets/venn/img/4.webp" alt="Overlap between markers of ultra-processing going up to 7 sets">
+        <div class="embed-caption">Overlap between markers of ultra-processing (MUP), going up to a whopping 7 sets! Source: <a href="https://www.researchgate.net/publication/374850681_Flavour_emulsifiers_and_colour_are_the_most_frequent_markers_to_detect_food_ultra-processing_in_a_UK_food_market_analysis" target="_blank">Flavour, emulsifiers and colour are the most frequent markers to detect food ultra-processing in a UK food market analysis</a>, Neumann, Eichner and Fasshauer (2017).</div>
+
+        <p>
+          The reader can clearly see that for any of these diagrams, as the number of sets 
+          increases, the diagram devolves into an undecipherable mess. The zen of the Venn is 
+          lost (term not coined by me, that honour goes to 
+          <a href="https://www.americanscientist.org/author/frank_ruskey" target="_blank">Frank Ruskey</a> 
+          from American Scientist). Thus, we're faced with the question: is there a more intuitive 
+          and scalable way to tackle this problem?
+        </p>
+
+        <h2 id="upset-plots">Enter UpSet plots</h2>
+
+        <p>
+          The answer, as it turns out (in the author's humble opinion, at least) is yes! I'm 
+          referring to UpSet plots, introduced in 2014 by Lex et al. in the paper 
+          <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC4720993/" target="_blank">"UpSet: Visualization of Intersecting Sets"</a>. 
+          These plots are increasingly replacing Venn diagrams in scientific writing, yet many 
+          people, especially outside of academia, are unaware of their existence.
+        </p>
+
+        <img src="../assets/venn/img/5.webp" alt="UpSet plot showing counts of error overlaps between four models">
+        <div class="embed-caption">UpSet plot showing counts of error overlaps between four models instead of three. This can easily be expanded to include more models as well.</div>
+
+        <p>
+          An UpSet plot is essentially a bar chart on steroids designed to show set overlap. 
+          The funky looking circles give the reader an intuitive view of which overlap a given 
+          bar in the chart depicts. For instance, a bar with a count of 12 might show the overlap 
+          between two specific models. The horizontal bars on the side additionally visualise 
+          the sizes of each set.
+        </p>
+
+        <p>
+          While it's not quite as intuitive as a Venn diagram, the reader can easily determine 
+          overlap between any given combination of sets by finding the appropriate bar. The 
+          following illustration shows the equivalence between a 3-set Venn diagram and an 
+          UpSet plot — each segment of the Venn diagram corresponds to a specific row in the 
+          UpSet plot.
+        </p>
+
+        <img src="../assets/venn/img/6.webp" alt="Illustration showing how the rows of an UpSet plot correspond to the segments of a Venn diagram">
+        <div class="embed-caption">Illustration showing how the rows of an UpSet plot correspond to the segments of a Venn diagram, source: <a href="https://en.wikipedia.org/wiki/UpSet_plot#cite_note-upset_infovis_2014-1" target="_blank">Wikipedia</a></div>
+
+        <h2 id="python-r">UpSet plots in Python and R</h2>
+
+        <p>
+          UpSet plots have become increasingly popular recently, and there are dedicated libraries 
+          in both <a href="https://github.com/jnothman/UpSetPlot" target="_blank">Python</a> and 
+          <a href="https://r-graph-gallery.com/upset-plot.html" target="_blank">R</a> for creating 
+          these plots. The Python variant, which I played around with, has a number of useful 
+          customisation options such as setting the minimum set sizes for inclusion in the plot, 
+          plotting distributions, flipping the orientation, etc.
+        </p>
+
+        <h2 id="limitation">A limitation: exclusive vs. inclusive counts</h2>
+
+        <p>
+          One limitation I've found with existing UpSet plots is that they are always exclusive, 
+          not inclusive. This is quite similar to Venn diagrams, but sometimes it is useful to 
+          convey inclusive numbers. For instance, in the previous example, the count for the 
+          overlap between three models might be 26. However, if we wanted all instances where 
+          these three models were incorrect, we would also need to add the cases where individual 
+          models were incorrect as well.
+        </p>
+
+        <p>
+          To overcome this limitation, I've created a fork of the UpSetPlot Python library that 
+          allows the user to specify whether they want to visualise both inclusive and exclusive 
+          numbers, by plotting the exclusive numbers on the bottom of the plot. This is still a 
+          work in progress, but I've created diagrams with this 
+          <a href="https://github.com/haritha-j/UpSetPlot" target="_blank">modified library</a>.
+        </p>
+
+        <img src="../assets/venn/img/7.webp" alt="Custom UpSet plot showing both inclusive and exclusive overlap counts">
+        <div class="embed-caption">Custom UpSet plot showing both inclusive and exclusive overlap counts. For instance C and A have an exclusive overlap of only 1, but including the A, B, C instance as well, the total inclusive count for C and A is 2. We no longer need horizontal bars as the counts for A, B, and C are included in the inclusive counts. The total set size is given as 5 in the first bar (i.e. this bar shows instances that belong to any set)</div>
+
+        <p>
+          The aforementioned inclusive plots are probably a niche use case that not many others 
+          have need of, but I still find it fascinating that the UpSet plot can easily be adapted 
+          to accommodate this need, and show this information in a clear and intuitive manner.
+        </p>
+
+        <h2 id="conclusion">Conclusion</h2>
+
+        <p>
+          In closing, I would encourage more people to experiment with this little-known method 
+          of visualising set overlaps. Perhaps you may encounter even more interesting adaptations 
+          to suit UpSet plots to your needs (we haven't even touched on using colour as an extra 
+          dimension).
+        </p>
+
+        <p>
+          Venn diagrams are simple and beautiful, but quite limited, given that many real-world 
+          use cases involve more than three sets. Among all the alternatives for going beyond 
+          three sets, UpSet plots are, in my opinion, the most intuitive. They provide a scalable 
+          way of visualising set overlaps, and I'd love to see more of them in academia and beyond.
+        </p>
+
+      </div>
+
+      <aside class="toc">
+        <div class="toc-title">/ On this page</div>
+        <ul class="toc-list">
+          <li><a href="#problem">The problem with Venn diagrams</a></li>
+          <li><a href="#upset-plots">Enter UpSet plots</a></li>
+          <li><a href="#python-r">UpSet plots in Python and R</a></li>
+          <li><a href="#limitation">Exclusive vs. inclusive counts</a></li>
+          <li><a href="#conclusion">Conclusion</a></li>
+        </ul>
+      </aside>
+    </div>
+  </article>
+
+  <!-- ===== FOOTER PLACEHOLDER ===== -->
+  <div id="footer-placeholder"></div>
+
+  <script src="../js/main.js"></script>
+  <script src="../js/load-partials.js"></script>
+</body>
+</html>
